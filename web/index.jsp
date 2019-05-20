@@ -1,9 +1,4 @@
-<%-- 
-    Document   : index
-    Created on : 2019-05-20, 18:23:57
-    Author     : Jaro
---%>
-
+<%@page import="dao.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +7,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <%= ((User)session.getAttribute("user")).getUsername() %>
     </body>
 </html>
