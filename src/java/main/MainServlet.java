@@ -1,9 +1,11 @@
 package main;
 
- import dao.User;
+import dao.TDane;
+import dao.User;
 import data.MemberRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,24 +13,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
- /**
+/**
  *
  * @author Student
  */
 @WebServlet(name = "MainServlet", urlPatterns = {"/MainServlet"})
 public class MainServlet extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = (String)request.getParameter("username");
-        String password = (String)request.getParameter("password");
+        //String username = (String)request.getParameter("username");
+        //String password = (String)request.getParameter("password");
+          
+        HttpSession httpSession = request.getSession(true);
+        
+        MemberRepository mem = new MemberRepository();
+        List<TDane> tDaneList = mem.findAll();
 
-         HttpSession httpSession = request.getSession(true);
-        httpSession.setAttribute("user", new User(username, password));
-
-         MemberRepository mem = new MemberRepository();
-        mem.findAll();
-
-         response.sendRedirect("index.jsp");
+        httpSession.setAttribute("tDaneList", tDaneList);
+                
+        response.sendRedirect("index.jsp");
     }
 
      // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
